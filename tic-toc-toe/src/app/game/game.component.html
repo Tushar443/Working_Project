@@ -1,0 +1,76 @@
+<div class="container-fluid box " style="display: flex; flex-direction: column;">
+    <div id="game">
+        <div class="row">
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+            <div class="col-xs-4 cell"><button></button></div>
+        </div>
+
+    </div>
+
+    <div id="controls" style="display: flex;">
+        <div class="col-6" style="height: 10vh; width: 10vw;">
+            <button id="resetButton" class="btn btn-success" style="height: 10vh;">
+                <h6>Reset game</h6>
+            </button>
+        </div>
+        <div class="col-6" style="height: 10vh; width: 10vw">
+            <button id="resetButton" class="btn btn-danger" style="height: 10vh;" (click)="start()">
+                <h6>Start Game</h6>
+            </button>
+        </div>
+        <div class="col-6" style="height: 10vh; width: 10vw">
+            <button id="resetButton" class="btn btn-secondary" style="height: 10vh;" (click)="logout()">
+                <h6>Log Out</h6>
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!--
+
+<div class="box">
+    <div id="game">
+        <div class="row">
+            <div onclick="button_onclick()"><button></button></div>
+            <div onclick="button_onclick()"><button></button></div>
+            <div onclick="button_onclick()"><button></button></div>
+        </div>
+        <div class="row">
+            <div><button></button></div>
+            <div><button></button></div>
+            <div><button></button></div>
+        </div>
+        <div class="row">
+            <div><button></button></div>
+            <div><button></button></div>
+            <div><button></button></div>
+        </div>
+    </div>
+    <div id="controls">
+        <div>
+            <label><input type="radio" name="level" /><span>Low</span></label>
+            <label><input type="radio" name="level" checked="checked" /><span>Medium</span></label>
+            <label><input type="radio" name="level" /><span>Hard</span></label>
+        </div>
+        <button id="resetButton">Reset game</button>
+        <button id="resetButton" (click)="start()">Start Game</button>
+    </div>
+</div>
+
+-->
