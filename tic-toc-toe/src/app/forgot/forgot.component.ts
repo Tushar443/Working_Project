@@ -14,6 +14,8 @@ export class ForgotComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient) { }
 
+
+
   ngOnInit(): void {
   }
 
@@ -30,26 +32,31 @@ export class ForgotComponent implements OnInit {
   forgot = this.fb.group({
     email: ['', [Validators.required, Validators.email, Validators.maxLength(12), Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
+    Cpassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
   });
 
+  flag: boolean = false;
+  message:string ='';
   ///////////////Ajax///////////////////////////
   async ForgotHere() {
 
     const data = this.forgot.value;
     console.log(data);
+    if (data.Cpassword === data.password) {
+      const url = 'http://localhost:5600/forgot';
 
-    const url = 'http://localhost:5600/forgot';
+      const result: any = await this.http.post(url, data).toPromise();
 
-    const result: any = await this.http.post(url, data).toPromise();
-
-    if (result.opr) {
-      //sesssion manangemt
-
-      this.router.navigate(['login']);
-
-    } else {
-
-      this.router.navigate(['signup']);
+      if (result.opr ==='true') {
+        //sesssion manangemt
+        this.router.navigate(['login']);
+      } else {
+        this.message=result.message;
+        this.flag=true;
+      }
+    }else{
+      this.message="Password did not match";
+      this.flag=true;
     }
 
   }

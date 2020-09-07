@@ -34,19 +34,19 @@ let readDataUsername = async (user) => {
    return result;
 };
 
-let readDataF = async (user) => {
-   const connection = mysql.createConnection(db_config);
+// let readDataF = async (user) => {
+//    const connection = mysql.createConnection(db_config);
 
-   await connection.connectAsync();
-   let my_Query = `select * from Signup where emailID =?`;
-   let result = await connection.queryAsync(my_Query, [user.emailID]);
-   if (result === undefined) {
-      return 'False';
-   }
-   await connection.endAsync();
-   console.log('Read data end');
-   return result;
-};
+//    await connection.connectAsync();
+//    let my_Query = `select * from Signup where emailID =?`;
+//    let result = await connection.queryAsync(my_Query, [user.emailID]);
+//    if (result === undefined) {
+//       return 'False';
+//    }
+//    await connection.endAsync();
+//    console.log('Read data end');
+//    return result;
+// };
 
 /**
  * id
@@ -82,7 +82,7 @@ let updateData = async (user) => {
    console.log(user);
    await connection.connectAsync();
    let my_Query = `update Signup set User_pass=? where emailID=?;`;
-   let result = await connection.queryAsync(my_Query, [user.password, user.emailID]);
+   let result = await connection.queryAsync(my_Query, [user.password, user.email]);
    await connection.endAsync();
    console.log('Update end ');
    return result;
@@ -94,7 +94,5 @@ module.exports = {
    insertData,
    countData,
    updateData,
-   readDataF,
    readDataUsername,
-
 };

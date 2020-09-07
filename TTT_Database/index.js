@@ -161,19 +161,25 @@ app.post('/signup', redirectHome, async (req, res) => {
 
 
 app.post('/forgot', async (req, res) => {
-    let emailID = req.body.email;
-    let password = req.body.password;
-    let user = {
-        emailID,
-        password,
-    }
-    console.log(user);
-    let result = await db.updateData(user);
+    let user = req.body;
+   
 
-    res.json({
-        opr: 'true'
-    });
-    console.log('Update Succesfully');
+    db.readData(user).then(async result => {
+        console.log(result);
+        if (!isNaN(result)) {
+            res.json({
+                opr: 'false',
+                message: 'Email does not exits'
+            })
+        } else {
+            console.log(user);
+            let result = await db.updateData(user);
+            res.json({
+                opr: 'true'
+            });
+            console.log('Update Succesfully');
+        }
+    }).catch(err => console.log(err));
 });
 
 
