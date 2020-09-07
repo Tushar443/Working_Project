@@ -68,9 +68,7 @@ export class LoginComponent implements OnInit {
         this.P_message=result.message;
       }else{
         this.E_message =result.message;
-        
       }
-      // this.router.navigate(['signup']);
     }
   }
 

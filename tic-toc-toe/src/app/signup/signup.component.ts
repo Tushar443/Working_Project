@@ -17,6 +17,9 @@ export class SignupComponent implements OnInit {
     private http: HttpClient) { }
 
 
+message:string
+flag:boolean=false;
+
 
   ngOnInit(): void {
   }
@@ -50,35 +53,28 @@ export class SignupComponent implements OnInit {
   get cpassword() {
     return this.form.get('cpassword');
   }
-
-
   //////Ajax////////////
   async RegisterHere() {
-
     const data1 = this.form.value;
-
-    const url = 'http://localhost:5600/signup';
+    console.log(data1);
+    if(data1.password === data1.cpassword){
+      const url = 'http://localhost:5600/signup';
 
     const result: any = await this.http.post(url, data1).toPromise();
 
-    if (result.opr) {
-
+    console.log(result);
+    
+    if (result.opr ==='true') {
       this.router.navigate(['login']);
-
     } else {
-
-      
-      this.router.navigate(['signup']);
-
+      this.flag =true;
+      this.message=result.message;
     }
-
-    //console.log(data);
+    }else{
+      this.message='Password did not match';
+      this.flag=true;
+    }
   }
-
-
-
-
-
   LoginPage() {
     this.router.navigate(['login']);
   }
