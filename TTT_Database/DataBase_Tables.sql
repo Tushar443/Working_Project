@@ -12,6 +12,6 @@ update Signup set User_pass='5467' where emailID='thunder@gmail.com';
 create table Signup(
 	id int auto_increment primary key,
    emailID varchar(50),
-   User_Pass varchar(20),
+   User_Pass varchar(200),
    Username varchar(20)
 );

@@ -32,17 +32,12 @@ app.use(body.urlencoded({
     extended: true
 }))
 
-let redirectLogin = (req, res, next) => {
-    if (!req.session.userId) {
-        res.redirect('/login');
-    } else {
-        next();
-    }
-};
-
 let redirectHome = (req, res, next) => {
+    console.log(req.session.userId);
     if (req.session.userId) {
-        res.redirect('/home');
+        return res.json({
+            opr: 'true'
+        });
     } else {
         next();
     }
@@ -88,7 +83,7 @@ app.get('/', (req, res) => {
     })
 });
 /**  POST Request
- * more@gmail.com
+ * 
  */
 
 app.post('/login', redirectHome, async (req, res) => {
@@ -102,7 +97,9 @@ app.post('/login', redirectHome, async (req, res) => {
             let user_session_ID = response[0].id;
 
             console.log(user_email + ' ' + user_User_Pass);
-            if (user.email === user_email && user.password === user_User_Pass) {
+           let flag= bcrypt.compareSync(user.password,user_User_Pass);
+           console.log(flag);
+             if(flag){
                 req.session.userId = user_session_ID;
                 console.log(req.session.userId);
                 res.json({
@@ -126,7 +123,15 @@ app.post('/login', redirectHome, async (req, res) => {
 })
 
 app.post('/signup', redirectHome, async (req, res) => {
-    let user = req.body;
+    let password_hash = req.body.password;
+    let hash =bcrypt.hashSync(password_hash,10);
+    let hash_username = req.body.username;
+    let hash_email = req.body.email;
+    let user = {
+        hash,
+        hash_username,
+        hash_email,
+    }
     console.log(user);
 
     let resultPromise = await db.countData().then(async result1 => {
@@ -162,7 +167,7 @@ app.post('/signup', redirectHome, async (req, res) => {
 
 app.post('/forgot', async (req, res) => {
     let user = req.body;
-   
+
 
     db.readData(user).then(async result => {
         console.log(result);

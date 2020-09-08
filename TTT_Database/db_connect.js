@@ -68,10 +68,9 @@ let countData = async () => {
 
 let insertData = async (user) => {
    const connection = mysql.createConnection(db_config);
-
    await connection.connectAsync();
    let my_Query = 'insert into Signup(emailID,User_Pass,Username) values (?,?,?)';
-   let result = await connection.queryAsync(my_Query, [user.email, user.password, user.username]);
+   let result = await connection.queryAsync(my_Query, [user.hash_email, user.hash, user.hash_username]);
    await connection.endAsync();
    console.log('Insert end ');
    return result;
