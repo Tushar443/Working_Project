@@ -6,8 +6,10 @@ const session = require('express-session');
 var cookieParser = require("cookie-parser");
 const body = require('body-parser');
 const bcrypt = require('bcrypt');
+const crypto =require('crypto');
 require('dotenv').config();
 const fast2sms=require('fast-two-sms');
+const nodemailer=require('nodemailer');
 const {
     response
 } = require('express');
@@ -17,6 +19,7 @@ const {
 const {
     password
 } = require('./db_config');
+const { log } = require('console');
 const app = express();
 
 /**
@@ -29,13 +32,14 @@ app.use((req, res, next) => {
 })
 app.use(cookieParser());
 app.use(core());
-app.use(express.json());
+app.use(express.json);
+// app.use(express.urlencoded({extended:true}));
 app.use(body.urlencoded({
     extended: true
 }))
 
 let redirectHome = (req, res, next) => {
-    console.log(req.session.userId);
+    // console.log(req.session.userId);
     if (req.session.userId) {
         return res.json({
             opr: 'true'
@@ -108,7 +112,6 @@ app.post('/login', redirectHome, async (req, res) => {
            console.log(flag);
              if(flag){
                 req.session.userId = user_session_ID;
-                console.log(req.session.userId);
                 res.json({
                     opr: 'true'
                 });
@@ -130,6 +133,7 @@ app.post('/login', redirectHome, async (req, res) => {
 })
 
 app.post('/signup', redirectHome, async (req, res) => {
+    console.log(req.body);
     let password_hash = req.body.password;
     let hash =bcrypt.hashSync(password_hash,10);
     let hash_username = req.body.username;
@@ -141,7 +145,7 @@ app.post('/signup', redirectHome, async (req, res) => {
     }
     console.log(user);
 
-    let resultPromise = await db.countData().then(async result1 => {
+    let resultPromise = db.countData().then(async result1 => {
         result1 = result1[0].total;
         db.readData(user).then(async result => {
             db.readDataUsername(user).then(async result3 => {
@@ -198,6 +202,15 @@ app.post('/forgot', async (req, res) => {
     }).catch(err => console.log(err));
 });
 
+app.post('/sendmessage',async(req,res)=>{
+
+    function randomValue(length){
+        return crypto.randomBytes(Math.ceil(length/2)).toString('hex').slice(0,length);
+    }
+    var value = randomValue(4);
+    const response_api=await  fast2sms.sendMessage({authorization : process.env.API_KEY, message:value,numbers:[9372567664],})
+    res.send(response_api);
+});
 
 app.listen(5600, (err) => {
     if (err) throw err;
