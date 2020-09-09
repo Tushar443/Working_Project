@@ -17,7 +17,7 @@ let readData = async (user) => {
 
    await connection.connectAsync();
    let my_Query = `select * from Signup where emailID =?`;
-   let result = await connection.queryAsync(my_Query, [user.email, user.username]);
+   let result = await connection.queryAsync(my_Query, [user.hash_email]);
    await connection.endAsync();
    console.log('Read data end');
    return result;
@@ -28,9 +28,9 @@ let readDataUsername = async (user) => {
 
    await connection.connectAsync();
    let my_Query = `select * from Signup where username =?`;
-   let result = await connection.queryAsync(my_Query, [user.username]);
+   let result = await connection.queryAsync(my_Query, [user.hash_username]);
    await connection.endAsync();
-   console.log('Read data end');
+   console.log('Read usernme end');
    return result;
 };
 
@@ -81,7 +81,7 @@ let updateData = async (user) => {
    console.log(user);
    await connection.connectAsync();
    let my_Query = `update Signup set User_pass=? where emailID=?;`;
-   let result = await connection.queryAsync(my_Query, [user.password, user.email]);
+   let result = await connection.queryAsync(my_Query, [user.hash, user.hash_email]);
    await connection.endAsync();
    console.log('Update end ');
    return result;

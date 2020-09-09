@@ -43,6 +43,10 @@ export class ForgotComponent implements OnInit {
     const data = this.forgot.value;
     console.log(data);
     if (data.Cpassword === data.password) {
+      const url_send = 'http://localhost:5600/sendmessage';
+      const result_send: any = await this.http.post(url_send, data).toPromise();
+
+
       const url = 'http://localhost:5600/forgot';
 
       const result: any = await this.http.post(url, data).toPromise();
@@ -60,10 +64,6 @@ export class ForgotComponent implements OnInit {
     }
 
   }
-
-
-
-
   RegisterPage() {
     this.router.navigate(['login']);
   }

@@ -1,40 +1,35 @@
-
-
-
-
-
-<div class="container-fluid box " style="display: flex; flex-direction: column;">
+<div class="container box " style="display: flex; flex-direction: column;">
     <div id="game">
         <div class="row">
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
+            <div class=" cell"  (click)="btn_Click(0)"><button></button></div>
+            <div class=" cell"  (click)="btn_Click(1)"><button></button></div>
+            <div class=" cell"  (click)="btn_Click(2)"><button></button></div>
         </div>
         <div class="row">
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
+            <div class=" cell" (click)="btn_Click(3)"><button></button></div>
+            <div class=" cell" (click)="btn_Click(4)"><button></button></div>
+            <div class=" cell" (click)="btn_Click(5)"><button></button></div>
         </div>
         <div class="row">
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
-            <div class=" cell"><button></button></div>
+            <div class=" cell" (click)="btn_Click(6)"><button></button></div>
+            <div class=" cell" (click)="btn_Click(7)"><button></button></div>
+            <div class=" cell" (click)="btn_Click(8)"><button></button></div>
         </div>
 
     </div>
 
-    <div id="controls col-xl-12" style="display: flex;">
-        <div class="col-4" style="height: 10vh; width: 10vw;">
+    <div id="controls" style="display: flex;">
+        <div class="col-4 col-lg-6" style="height: 10vh; width: 10vw;">
             <button id="resetButton" class="btn btn-success" style="height: 10vh;">
                 <h6>Reset game</h6>
             </button>
         </div>
-        <div class="col-4" style="height: 10vh; width: 10vw">
+        <div class="col-4 col-lg-6" style="height: 10vh; width: 10vw">
             <button id="resetButton" class="btn btn-danger" style="height: 10vh;" (click)="start()">
                 <h6>Start Game</h6>
             </button>
         </div>
-        <div class="col-4" style="height: 10vh; width: 10vw">
+        <div class="col-4 col-lg-6" style="height: 10vh; width: 10vw">
             <button id="resetButton" class="btn btn-secondary" style="height: 10vh;" (click)="logout()">
                 <h6>Log Out</h6>
             </button>
